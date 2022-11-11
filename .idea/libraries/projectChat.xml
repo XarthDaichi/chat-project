@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="projectChat">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/../MaterialesBD/projectChat" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
