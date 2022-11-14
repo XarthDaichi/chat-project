@@ -24,7 +24,9 @@ public class View implements Observer {
     private JButton post;
     private JButton logout;
     private JButton register;
-    private JTable table1;
+    private JTable contactsField;
+    private JScrollPane ContactsPanel;
+    private JLabel ContactsLabel;
 
     Model model;
     Controller controller;
@@ -84,7 +86,8 @@ public class View implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = mensaje.getText();
-                controller.post(text);
+                int row = contactsField.getSelectedRow();
+                controller.post(text, row);
             }
         });
     }
@@ -107,7 +110,8 @@ public class View implements Observer {
     String receiverStyle = "background-color:white; margin-left:5px; margin-right:30px; margin-top:3px; padding:2px;";
 
     public void update(java.util.Observable updatedModel, Object properties) {
-
+        int[] cols = {TableModel.NAME, TableModel.ONLINE};
+        contactsField.setModel(new TableModel(cols, model.getContacts()));
         int prop = (int) properties;
         if (model.getCurrentUser() == null) {
             Application.window.setTitle("CHAT");
@@ -133,7 +137,7 @@ public class View implements Observer {
             }
             this.mensaje.setText("");
         }
-        panel.validate();
+        panel.revalidate();
     }
 
 }

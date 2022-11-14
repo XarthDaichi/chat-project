@@ -51,6 +51,14 @@ public class User implements Serializable{
         this.nombre = nombre;
     }
 
+    public boolean isOnline() {
+        return online;
+    }
+
+    public void setOnline(boolean online) {
+        this.online = online;
+    }
+
     @Override
     public int hashCode() {
         int hash = 5;

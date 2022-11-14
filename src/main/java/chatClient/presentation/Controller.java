@@ -33,7 +33,12 @@ public class Controller {
         model.commit(Model.USER);
     }
 
-    public void post(String text){
+    public void post(String text, int receiver){
+        String id = model.getContacts().get(receiver).getId();
+        User receiverObject = null;
+        try {
+//            receiverObject = ServiceProxy.
+        } catch(Exception ex) {}
         Message message = new Message();
         message.setMessage(text);
         message.setSender(model.getCurrentUser());
