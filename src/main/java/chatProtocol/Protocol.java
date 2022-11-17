@@ -20,6 +20,6 @@ public class Protocol {
     public static final int ERROR_REGISTER=4;
 
     public static final int CONTACT=5;
-    public static final int CONTACT_RESPONE=6;
+    public static final int CONTACT_RESPONSE=6;
     public static final int ERROR_CONTACT=5;
 }

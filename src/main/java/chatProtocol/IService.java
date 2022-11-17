@@ -6,4 +6,6 @@ public interface IService {
     public void register(User u) throws Exception;
     public void logout(User u) throws Exception; 
     public void post(Message m);
+
+    public boolean checkContact(User u) throws Exception;
 }

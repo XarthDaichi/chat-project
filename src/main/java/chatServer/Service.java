@@ -43,4 +43,8 @@ public class Service implements IService{
     public void logout(User p) throws Exception{
         //nothing to do
     }
+
+    public boolean checkContact(User u) throws Exception {
+        return false;
+    }
 }
