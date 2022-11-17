@@ -94,20 +94,20 @@ public class Server {
         return user;
     }
 
-    private User register(ObjectInputStream in, ObjectOutputStream out, IService service) throws IOException, ClassNotFoundException, Exception {
+    private void register(ObjectInputStream in, ObjectOutputStream out, IService service) throws IOException, ClassNotFoundException, Exception {
         int method = in.readInt();
         if (method!=Protocol.REGISTER) throw new Exception("Should register first");
         User user=(User)in.readObject();
-        user=service.register(user);
+        service.register(user);
         out.writeInt(Protocol.ERROR_NO_ERROR);
-        out.writeObject(user);
         out.flush();
-        return user;
     }
     
     public void deliver(Message message){
         for(Worker wk:workers){
-            wk.deliver(message);
+            if (wk.user.equals(message.getReceiver())) {
+                wk.deliver(message);
+            }
         }        
     } 
     

@@ -28,20 +28,15 @@ public class Controller {
     }
 
     public void register(User u) throws Exception {
-        User logged=ServiceProxy.instance().register(u);
-        model.setCurrentUser(logged);
-        model.commit(Model.USER);
+        ServiceProxy.instance().register(u);
     }
 
     public void post(String text, int receiver){
-        String id = model.getContacts().get(receiver).getId();
-        User receiverObject = null;
-        try {
-//            receiverObject = ServiceProxy.
-        } catch(Exception ex) {}
+        User receiverObject = model.getContacts().get(receiver);
         Message message = new Message();
         message.setMessage(text);
         message.setSender(model.getCurrentUser());
+        message.setReceiver(receiverObject);
         ServiceProxy.instance().post(message);
         model.commit(Model.CHAT);
     }
@@ -60,5 +55,9 @@ public class Controller {
     public void deliver(Message message){
         model.messages.add(message);
         model.commit(Model.CHAT);       
-    }    
+    }
+
+    public void addContact(User u) throws Exception {
+
+    }
 }

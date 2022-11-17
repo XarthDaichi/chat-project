@@ -3,6 +3,7 @@ package chatClient.presentation;
 import chatProtocol.User;
 
 import javax.swing.table.AbstractTableModel;
+import java.util.ArrayList;
 import java.util.List;
 
 public class TableModel extends AbstractTableModel implements javax.swing.table.TableModel {
@@ -19,7 +20,7 @@ public class TableModel extends AbstractTableModel implements javax.swing.table.
         return columns.length;
     }
 
-    public String getColumName(int column) {
+    public String getColumnName(int column) {
         return columnNames[columns[column]];
     }
 
@@ -29,7 +30,6 @@ public class TableModel extends AbstractTableModel implements javax.swing.table.
             default: return super.getColumnClass(column);
         }
     }
-
     public int getRowCount() {
         return rows.size();
     }
@@ -52,7 +52,7 @@ public class TableModel extends AbstractTableModel implements javax.swing.table.
     String[] columnNames = new String[2];
 
     private void initColumnNames() {
-        columnNames[NAME] = "Name";
+        columnNames[NAME] = "Nombre";
         columnNames[ONLINE] = "Online";
     }
 }

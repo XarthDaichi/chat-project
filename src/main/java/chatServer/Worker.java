@@ -64,9 +64,13 @@ public class Worker {
                         message = (Message)in.readObject();
                         message.setSender(user);
                         srv.deliver(message);
-                        //service.post(message); // if wants to save messages, ex. recivier no logged on
-                        System.out.println(user.getNombre()+": "+message.getMessage());
-                    } catch (ClassNotFoundException ex) {}
+                        if (!receiverLoggedIn(message)) {
+                            service.post(message); // if wants to save messages, ex. recivier no logged on
+                        }
+                        System.out.println(user.getNombre() + ": " + message.getMessage());
+                    } catch (ClassNotFoundException ex) {} catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                     break;                     
                 }
                 out.flush();
@@ -84,5 +88,14 @@ public class Worker {
             out.flush();
         } catch (IOException ex) {
         }
+    }
+
+    public boolean receiverLoggedIn(Message message) {
+        for (Worker wk:srv.workers){
+            if (wk.user.equals(message.getReceiver())) {
+                return true;
+            }
+        }
+        return false;
     }
 }

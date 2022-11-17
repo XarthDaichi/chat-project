@@ -27,6 +27,9 @@ public class View implements Observer {
     private JTable contactsField;
     private JScrollPane ContactsPanel;
     private JLabel ContactsLabel;
+    private JTextField inputContactsField;
+    private JButton searchButton;
+    private JButton addButton;
 
     Model model;
     Controller controller;
@@ -88,6 +91,18 @@ public class View implements Observer {
                 String text = mensaje.getText();
                 int row = contactsField.getSelectedRow();
                 controller.post(text, row);
+            }
+        });
+        addButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+        searchButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
             }
         });
     }

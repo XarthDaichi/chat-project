@@ -7,7 +7,7 @@ import chatServer.data.Data;
 import chatServer.data.UsuarioDao;
 import java.util.List;
 
-public class  Service implements IService{
+public class Service implements IService{
     private static Service theInstance;
 //    private Data data;
     private static Service instance() {
@@ -36,12 +36,11 @@ public class  Service implements IService{
         return usuarioDao.read(p.getId(), p.getClave());
     }
 
-    public User register(User p) throws Exception {
+    public void register(User p) throws Exception {
         usuarioDao.create(p);
-        return p;
     }
 
     public void logout(User p) throws Exception{
         //nothing to do
-    }    
+    }
 }

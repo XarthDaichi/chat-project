@@ -18,4 +18,8 @@ public class Protocol {
     public static final int ERROR_LOGOUT=2;    
     public static final int ERROR_POST=3;
     public static final int ERROR_REGISTER=4;
+
+    public static final int CONTACT=5;
+    public static final int CONTACT_RESPONE=6;
+    public static final int ERROR_CONTACT=5;
 }

@@ -20,11 +20,11 @@ public class Application {
         Model model= new Model();
         View view = new View();
         Controller controller =new Controller(view, model);
-        window.setSize(600,400);
+        window.setSize(720,400);
         window.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         window.setTitle("CHAT");
         try {
-            window.setIconImage((new ImageIcon(Application.class.getResource("/logo.png"))).getImage());
+            window.setIconImage((new ImageIcon(Application.class.getResource("/logo1.png"))).getImage());
         } catch (Exception e) {}
         window.setContentPane(view.getPanel());
         window.setVisible(true);
