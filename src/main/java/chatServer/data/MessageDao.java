@@ -24,29 +24,21 @@ public class MessageDao {
         stm.setString(1, m.getSender().getId());
         stm.setString(2, m.getReceiver().getId());
         stm.setString(3, m.getMessage());
-        stm.setInt(4, this.messageCount()+1);
+        stm.setInt(4, this.maxCount()+1);
 
         db.executeUpdate(stm);
     }
 
-    public int messageCount() throws Exception {
-        UsuarioDao usuarioDao = new UsuarioDao();
-        List<Message> result = new ArrayList<Message>();
-        String sql = "select * " +
+    public int maxCount() throws Exception {
+        String sql = "select max(orderEntered) " +
                 "from " +
-                "Message m " +
-                " inner join Usuario u on m.sender=u.id " +
-                " inner join Usuario s on m.receiver=s.id";
+                "Message m";
         PreparedStatement stm = db.prepareStatement(sql);
         ResultSet rs = db.executeQuery(stm);
-        Message message;
-        while (rs.next()) {
-            message = from(rs, "m");
-            message.setSender(usuarioDao.from(rs, "u"));
-            message.setReceiver(usuarioDao.from(rs, "s"));
-            result.add(message);
+        if (rs.next()) {
+            return rs.getInt(1);
         }
-        return result.size();
+        return 0;
     }
 
     public void delete(Message m) throws Exception {
