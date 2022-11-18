@@ -20,6 +20,7 @@ public class Controller {
     public Controller(View view, Model model) {
         try {
             model.setContacts(Service.instance().getContacts());
+            model.setMessages(Service.instance().getMessages());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -36,6 +37,7 @@ public class Controller {
         model.setCurrentUser(logged);
         Service.instance().load(model.getCurrentUser());
         model.setContacts(Service.instance().getContacts());
+        model.setMessages(Service.instance().getMessages());
         model.commit(Model.USER+Model.CHAT);
     }
 
@@ -65,7 +67,8 @@ public class Controller {
     }
         
     public void deliver(Message message){
-        model.messages.add(message);
+        Service.instance().getMessages().add(message);
+        model.setMessages(Service.instance().getMessages());
         model.commit(Model.CHAT);       
     }
 

@@ -2,6 +2,7 @@ package chatClient.logic;
 
 import chatClient.data.Data;
 import chatClient.data.XmlPersister;
+import chatProtocol.Message;
 import chatProtocol.User;
 
 import java.util.ArrayList;
@@ -37,6 +38,10 @@ public class Service {
 
     public List<User> getContacts() {
         return data.getContacts();
+    }
+
+    public List<Message> getMessages() {
+        return data.getMessages();
     }
 
     public void load(User user) {
