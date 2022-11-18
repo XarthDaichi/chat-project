@@ -102,6 +102,8 @@ public class View implements Observer {
         searchButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                User user = new User();
+                user.setNombre(inputContactsField.getText());
 
             }
         });

@@ -1,14 +1,18 @@
 package chatClient.presentation;
 
+import chatClient.data.Data;
 import chatClient.logic.ServiceProxy;
 import chatProtocol.Message;
 import chatProtocol.User;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Controller {
     View view;
     Model model;
+
+    Data data;
     
     ServiceProxy localService;
     
@@ -58,6 +62,14 @@ public class Controller {
     }
 
     public void addContact(User u) throws Exception {
+
+    }
+
+    public void search(User filter) throws Exception {
+        List<User> rows = null;
+        rows = data.getContacts().stream().filter(e->e.getNombre().equals(filter.getNombre())).findFirst().orElse(null);
+        if (rows!=null && !filter.getNombre().isEmpty()) return rows;
+        else if (rows==null && !filter.getNombre().isEmpty()) throw new Exception("Contact does not exits");
 
     }
 }

@@ -3,9 +3,7 @@ package chatServer;
 import chatProtocol.User;
 import chatProtocol.IService;
 import chatProtocol.Message;
-import chatServer.data.Data;
 import chatServer.data.UsuarioDao;
-import java.util.List;
 
 public class Service implements IService{
     private static Service theInstance;

@@ -20,7 +20,7 @@ public class Model extends java.util.Observable {
     public Model() {
        currentUser = null;
        messages= new ArrayList<>();
-       contacts = new ArrayList<User>(Arrays.asList(new User("001", "000", "Diego", false),new User("002", "000", "Jorge", false), new User("003", "000", "Sofia", false)));
+//       contacts = new ArrayList<User>(Arrays.asList(new User("001", "000", "Diego", false),new User("002", "000", "Jorge", false), new User("003", "000", "Sofia", false)));
     }
 
     public User getCurrentUser() {
