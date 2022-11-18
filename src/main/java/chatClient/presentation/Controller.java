@@ -35,6 +35,7 @@ public class Controller {
     public void login(User u) throws Exception{
         User logged=ServiceProxy.instance().login(u);
         model.setCurrentUser(logged);
+        model.setCurrentReceiver(null);
         Service.instance().load(model.getCurrentUser());
         model.setContacts(Service.instance().getContacts());
         model.setMessages(Service.instance().getMessages());

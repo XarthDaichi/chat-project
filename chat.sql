@@ -7,6 +7,16 @@ create table Usuario (
     Primary Key (id)
 );
 
+create table Message (
+    sender varchar(30) not null,
+    receiver varchar(30) not null,
+    note varchar(280) not null,
+    orderEntered varchar(10) not null,
+    Primary Key (orderEntered)
+);
+ALTER TABLE Message ADD Foreign Key (sender) REFERENCES Usuario(id);
+ALTER TABLE Message ADD Foreign Key (receiver) REFERENCES Usuario(id);
+
 insert into usuario
     (id, clave, nombre)
     values('001', '1111','Diego');
