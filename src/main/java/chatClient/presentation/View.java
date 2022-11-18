@@ -169,7 +169,7 @@ public class View implements Observer {
                 this.messages.setText("");
                 String text = "";
                 for (Message m : model.getMessages()) {
-                    if (m.getSender().equals(model.getCurrentUser()) && m.getReceiver().equals(model.getCurrentUser())) {
+                    if (m.getSender().equals(model.getCurrentUser()) && m.getReceiver().equals(model.getCurrentReceiver())) {
                         text += ("Me:" + m.getMessage() + "\n");
                     } else if (m.getSender().equals(model.getCurrentReceiver())){
                         text += (model.getCurrentReceiver().getNombre() + ": " + m.getMessage() + "\n");

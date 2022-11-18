@@ -12,8 +12,6 @@ import java.util.List;
 public class Controller {
     View view;
     Model model;
-
-    Data data;
     
     ServiceProxy localService;
     
