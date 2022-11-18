@@ -141,6 +141,7 @@ public class Worker {
             List<Message> missedMessages = service.checkMessages(user);
             for (Message message : missedMessages) {
                 this.deliver(message);
+                service.readMessage(message);
             }
         } catch(Exception ex) {
             throw new RuntimeException(ex);

@@ -12,4 +12,6 @@ public interface IService {
     public User checkContact(User u) throws Exception;
 
     public List<Message> checkMessages(User user) throws Exception;
+
+    public void readMessage(Message message) throws Exception;
 }

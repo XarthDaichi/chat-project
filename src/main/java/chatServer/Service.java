@@ -54,4 +54,8 @@ public class Service implements IService{
     public List<Message> checkMessages(User user) throws Exception {
         return messageDao.read(user);
     }
+
+    public void readMessage(Message read) throws Exception {
+        messageDao.delete(read);
+    }
 }

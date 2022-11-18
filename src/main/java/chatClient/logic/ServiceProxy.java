@@ -215,4 +215,7 @@ public class ServiceProxy implements IService{
     public List<Message> checkMessages(User user) throws Exception {
         return new ArrayList<Message>();
     }
+    public void readMessage(Message read) throws Exception {
+    }
+
 }
