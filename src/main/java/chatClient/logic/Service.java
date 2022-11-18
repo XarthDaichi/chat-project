@@ -26,7 +26,7 @@ public class Service {
     }
 
     public List<User> contactSearch(User filter) throws Exception {
-        return data.getContacts().stream().filter(element->element.toString().contains(filter.toString())).collect(toCollection(ArrayList::new));
+        return data.getContacts().stream().filter(element->element.getNombre().contains(filter.getNombre())).collect(toCollection(ArrayList::new));
     }
 
     public User getContact(User filter) throws Exception {

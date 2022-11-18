@@ -43,12 +43,11 @@ public class Controller {
         ServiceProxy.instance().register(u);
     }
 
-    public void post(String text, int receiver){
-        User receiverObject = model.getContacts().get(receiver);
+    public void post(String text){
         Message message = new Message();
         message.setMessage(text);
         message.setSender(model.getCurrentUser());
-        message.setReceiver(receiverObject);
+        message.setReceiver(model.getCurrentReceiver());
         ServiceProxy.instance().post(message);
         model.commit(Model.CHAT);
     }
@@ -66,7 +65,6 @@ public class Controller {
     }
         
     public void deliver(Message message){
-        model.setCurrentReceiver(message.getReceiver());
         model.messages.add(message);
         model.commit(Model.CHAT);       
     }
@@ -87,6 +85,16 @@ public class Controller {
         }
     }
 
+    public void contactLoggedIn(User u) {
+        for (User contact : Service.instance().getContacts()) {
+            if (contact.equals(u)) {
+                contact.setOnline(true);
+                model.setContacts(Service.instance().getContacts());
+                model.commit(Model.CHAT);
+            }
+        }
+    }
+
     public void search(User filter) throws Exception {
         List<User> rows = null;
         try {
@@ -102,5 +110,15 @@ public class Controller {
         User user = model.getContacts().get(row);
         model.setCurrentReceiver(user);
         model.commit(Model.CHAT);
+    }
+
+    public void contactLoggedOut(User loggedOut) {
+        for (User contact : Service.instance().getContacts()) {
+            if (contact.equals(loggedOut)) {
+                contact.setOnline(false);
+                model.setContacts(Service.instance().getContacts());
+                model.commit(Model.CHAT);
+            }
+        }
     }
 }

@@ -52,6 +52,9 @@ public class Server {
                             Worker worker = new Worker(this, in, out, user, service);
                             workers.add(worker);
                             worker.start();
+                            for (Worker wk : workers) {
+                                wk.contactLogin(user);
+                            }
                         } catch (Exception ex) {
                             out.writeInt(Protocol.ERROR_LOGIN);
                             out.flush();

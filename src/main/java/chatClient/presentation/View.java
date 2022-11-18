@@ -48,7 +48,7 @@ public class View implements Observer {
         login.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                User u = new User(id.getText(), new String(clave.getPassword()), "", false);
+                User u = new User(id.getText(), new String(clave.getPassword()), "", true);
                 id.setBackground(Color.white);
                 clave.setBackground(Color.white);
                 try {
@@ -92,8 +92,7 @@ public class View implements Observer {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String text = mensaje.getText();
-                int row = contactsField.getSelectedRow();
-                controller.post(text, row);
+                controller.post(text);
             }
         });
         addButton.addActionListener(new ActionListener() {
@@ -110,6 +109,7 @@ public class View implements Observer {
                         JOptionPane.showMessageDialog(panel, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
                     }
                 }
+                inputContactsField.setText("");
             }
         });
         searchButton.addActionListener(new ActionListener() {
@@ -117,7 +117,11 @@ public class View implements Observer {
             public void actionPerformed(ActionEvent e) {
                 User user = new User();
                 user.setNombre(inputContactsField.getText());
-
+                try {
+                    controller.search(user);
+                } catch (Exception ex) {
+                    throw new RuntimeException(ex);
+                }
             }
         });
         contactsField.addMouseListener(new MouseAdapter() {
@@ -165,10 +169,10 @@ public class View implements Observer {
                 this.messages.setText("");
                 String text = "";
                 for (Message m : model.getMessages()) {
-                    if (m.getSender().equals(model.getCurrentUser())  && m.getReceiver().equals(model.getCurrentReceiver())) {
+                    if (m.getSender().equals(model.getCurrentUser()) && m.getReceiver().equals(model.getCurrentUser())) {
                         text += ("Me:" + m.getMessage() + "\n");
                     } else if (m.getSender().equals(model.getCurrentReceiver())){
-                        text += (m.getSender().getNombre() + ": " + m.getMessage() + "\n");
+                        text += (model.getCurrentReceiver().getNombre() + ": " + m.getMessage() + "\n");
                      }
                 }
                 this.messages.setText(text);

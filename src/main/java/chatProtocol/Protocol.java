@@ -6,6 +6,7 @@ public class Protocol {
     public static final int PORT = 1234;
 
     public static final int LOGIN=1;
+
     public static final int LOGOUT=2;    
     public static final int POST=3;
 
@@ -22,4 +23,6 @@ public class Protocol {
     public static final int CONTACT=5;
     public static final int CONTACT_RESPONSE=6;
     public static final int ERROR_CONTACT=5;
+    public static final int CONTACT_LOGIN=7;
+    public static final int CONTACT_LOGOUT=8;
 }

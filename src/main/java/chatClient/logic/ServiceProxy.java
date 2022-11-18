@@ -132,17 +132,51 @@ public class ServiceProxy implements IService{
                 case Protocol.CONTACT_RESPONSE:
                     try {
                         User addingContact=(User) in.readObject();
-                        controller.addContactToList(addingContact);
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    controller.addContactToList(addingContact);
+                                } catch (Exception e) {
+                                    throw new RuntimeException(e);
+                                }
+                            }
+                        });
                     } catch(Exception e) {
                         throw new RuntimeException(e);
                     }
                     break;
-                    case Protocol.ERROR_CONTACT:
-                        try {
-                            controller.addContactToList(null);
-                        } catch(Exception e) {
-                            throw new RuntimeException(e);
-                        }
+                case Protocol.ERROR_CONTACT:
+                    try {
+                        controller.addContactToList(null);
+                    } catch(Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                    break;
+                case Protocol.CONTACT_LOGIN:
+                    try {
+                        User loggedIn = (User) in.readObject();
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                controller.contactLoggedIn(loggedIn);
+                            }
+                        });
+                    } catch(Exception e) {
+                        throw new RuntimeException(e);
+                    }
+                case Protocol.CONTACT_LOGOUT:
+                    try {
+                        User loggedOut = (User) in.readObject();
+                        SwingUtilities.invokeLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                controller.contactLoggedOut(loggedOut);
+                            }
+                        });
+                    }catch (Exception e) {
+                        throw new RuntimeException(e);
+                    }
                 default:
                     break;
                 }
