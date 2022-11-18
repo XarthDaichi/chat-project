@@ -96,7 +96,17 @@ public class View implements Observer {
         addButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                JTextField id = new JTextField("");
+                Object[] fields = {"Id:", id};
+                int option = JOptionPane.showConfirmDialog(panel, fields, inputContactsField.getText(), JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                if (option == JOptionPane.OK_OPTION) {
+                    try {
+                        User addingContact = new User(id.getText(), new String(), inputContactsField.getText(), false);
+                        controller.addContact(addingContact);
+                    } catch (Exception ex) {
+                        JOptionPane.showMessageDialog(panel, ex.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                    }
+                }
             }
         });
         searchButton.addActionListener(new ActionListener() {

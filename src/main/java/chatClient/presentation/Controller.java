@@ -68,7 +68,8 @@ public class Controller {
     }
 
     public void addContact(User u) throws Exception {
-
+        User newContact = ServiceProxy.instance().checkContact(u);
+        model.
     }
 
     public void search(User filter) throws Exception {

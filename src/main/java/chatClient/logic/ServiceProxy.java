@@ -135,6 +135,7 @@ public class ServiceProxy implements IService{
                     } catch (ClassNotFoundException ex) {}
                     break;
                 case Protocol.CONTACT_RESPONSE:
+
                     break;
                 default:
                     break;
@@ -155,20 +156,18 @@ public class ServiceProxy implements IService{
       );
    }
 
-   public boolean checkContact(User u) throws Exception {
+   public void checkContact(User u) throws Exception {
        try {
            out.writeInt(Protocol.CONTACT);
            out.writeObject(u);
            out.flush();
            int response = in.readInt();
            if (response==Protocol.ERROR_NO_ERROR){
-               return true;
            }
            else {
                throw new Exception("No remote user");
            }
        } catch (IOException | ClassNotFoundException ex) {
        }
-       return false;
    }
 }

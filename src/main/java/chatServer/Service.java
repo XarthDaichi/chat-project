@@ -42,7 +42,6 @@ public class Service implements IService{
         //nothing to do
     }
 
-    public boolean checkContact(User u) throws Exception {
-        return false;
+    public void checkContact(User u) throws Exception {
     }
 }
