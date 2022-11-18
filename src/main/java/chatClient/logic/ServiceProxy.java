@@ -61,7 +61,7 @@ public class ServiceProxy implements IService{
             else {
                 disconnect();
                 throw new Exception("No remote user");
-            }            
+            }
         } catch (IOException | ClassNotFoundException ex) {
             return null;
         }
@@ -74,8 +74,11 @@ public class ServiceProxy implements IService{
             out.writeObject(u);
             out.flush();
             int response = in.readInt();
-            if (response==Protocol.ERROR_REGISTER){
+            if (response==Protocol.ERROR_NO_ERROR){
                 User u1=(User) in.readObject();
+            } else {
+                disconnect();
+                throw new Exception("Could not register");
             }
         } catch (IOException | ClassNotFoundException ex) {
         }

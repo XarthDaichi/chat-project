@@ -53,9 +53,7 @@ public class Worker {
                 //case Protocol.LOGIN: done on accept
                 case Protocol.LOGOUT:
                     try {
-                        for (Worker wk : srv.workers) {
-                            wk.contactLogout(user);
-                        }
+                        srv.logout(user);
                         srv.remove(user);
                         //service.logout(user); //nothing to do
                     } catch (Exception ex) {}

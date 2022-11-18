@@ -54,6 +54,7 @@ public class Server {
                             worker.start();
                             for (Worker wk : workers) {
                                 wk.contactLogin(user);
+                                worker.contactLogin(wk.user);
                             }
                         } catch (Exception ex) {
                             out.writeInt(Protocol.ERROR_LOGIN);
@@ -112,7 +113,13 @@ public class Server {
                 wk.deliver(message);
             }
         }        
-    } 
+    }
+
+    public void logout(User user) {
+        for (Worker wk : workers) {
+            wk.contactLogout(user);
+        }
+    }
     
     public void remove(User u){
         for(Worker wk:workers) if(wk.user.equals(u)){workers.remove(wk);break;}
