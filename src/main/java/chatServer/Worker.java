@@ -65,7 +65,7 @@ public class Worker {
                     Message message=null;
                     try {
                         message = (Message)in.readObject();
-                        message.setSender(user);
+//                        message.setSender(user);
                         srv.deliver(message);
                         if (!receiverLoggedIn(message)) {
                             service.post(message); // if wants to save messages, ex. recivier no logged on

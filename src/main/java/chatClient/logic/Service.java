@@ -49,6 +49,9 @@ public class Service {
 
     public void save(User user) {
         try {
+            for (User u : data.getContacts()) {
+               u.setOnline(false);
+            }
             XmlPersister.instance(user).store(data);
         } catch (Exception e) {
             System.out.println(e.getMessage());

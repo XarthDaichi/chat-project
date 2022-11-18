@@ -165,6 +165,7 @@ public class ServiceProxy implements IService{
                     } catch(Exception e) {
                         throw new RuntimeException(e);
                     }
+                    break;
                 case Protocol.CONTACT_LOGOUT:
                     try {
                         User loggedOut = (User) in.readObject();
@@ -177,6 +178,7 @@ public class ServiceProxy implements IService{
                     }catch (Exception e) {
                         throw new RuntimeException(e);
                     }
+                    break;
                 default:
                     break;
                 }
