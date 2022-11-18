@@ -8,7 +8,7 @@ import chatServer.data.UsuarioDao;
 public class Service implements IService{
     private static Service theInstance;
 //    private Data data;
-    private static Service instance() {
+    public static Service instance() {
         if (theInstance == null) {
             theInstance = new Service();
         }
@@ -42,6 +42,7 @@ public class Service implements IService{
         //nothing to do
     }
 
-    public void checkContact(User u) throws Exception {
+    public User checkContact(User u) throws Exception {
+        return usuarioDao.read(u.getId());
     }
 }

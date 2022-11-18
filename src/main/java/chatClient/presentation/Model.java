@@ -9,19 +9,26 @@ import chatProtocol.Message;
 import chatProtocol.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class Model extends java.util.Observable {
     User currentUser;
+    User currentReceiver;
     List<Message> messages;
     List<User> contacts;
 
     public Model() {
        currentUser = null;
        messages= new ArrayList<>();
-//       contacts = new ArrayList<User>(Arrays.asList(new User("001", "000", "Diego", false),new User("002", "000", "Jorge", false), new User("003", "000", "Sofia", false)));
-        this.setContacts(new ArrayList<User>());
+       this.setContacts(new ArrayList<User>());
+    }
+
+    public User getCurrentReceiver() {
+        return currentReceiver;
+    }
+
+    public void setCurrentReceiver(User user) {
+        this.currentReceiver = user;
     }
 
     public User getCurrentUser() {
@@ -50,7 +57,7 @@ public class Model extends java.util.Observable {
 
     public void addObserver(java.util.Observer o) {
         super.addObserver(o);
-        this.commit(Model.USER+Model.CHAT+Model.CONTACT);
+        this.commit(Model.USER+Model.CHAT);
     }
     
     public void commit(int properties){
@@ -60,5 +67,4 @@ public class Model extends java.util.Observable {
     
     public static int USER=1;
     public static int CHAT=2;
-    public static int CONTACT=3;
 }

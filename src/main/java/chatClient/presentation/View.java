@@ -9,6 +9,8 @@ import javax.swing.text.DefaultCaret;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Observer;
 
 public class View implements Observer {
@@ -30,6 +32,7 @@ public class View implements Observer {
     private JTextField inputContactsField;
     private JButton searchButton;
     private JButton addButton;
+    private JLabel selectedContactLabel;
 
     Model model;
     Controller controller;
@@ -117,6 +120,14 @@ public class View implements Observer {
 
             }
         });
+        contactsField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = contactsField.getSelectedRow();
+                controller.selectContact(row);
+                selectedContactLabel.setText(model.getCurrentReceiver().getNombre());
+            }
+        });
     }
 
     public void setModel(Model model) {
@@ -154,9 +165,9 @@ public class View implements Observer {
                 this.messages.setText("");
                 String text = "";
                 for (Message m : model.getMessages()) {
-                    if (m.getSender().equals(model.getCurrentUser())) {
+                    if (m.getSender().equals(model.getCurrentUser())  && m.getReceiver().equals(model.getCurrentReceiver())) {
                         text += ("Me:" + m.getMessage() + "\n");
-                    } else {
+                    } else if (m.getSender().equals(model.getCurrentReceiver())){
                         text += (m.getSender().getNombre() + ": " + m.getMessage() + "\n");
                      }
                 }
@@ -164,7 +175,7 @@ public class View implements Observer {
             }
             this.mensaje.setText("");
         }
-        panel.revalidate();
+        panel.validate();
     }
 
 }

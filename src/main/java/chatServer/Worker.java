@@ -71,7 +71,21 @@ public class Worker {
                     } catch (ClassNotFoundException ex) {} catch (Exception e) {
                         throw new RuntimeException(e);
                     }
-                    break;                     
+                    break;
+                case Protocol.CONTACT:
+                    try {
+                        User checkingContact = (User) in.readObject();
+                        System.out.println("Trying to add " + checkingContact.getNombre());
+                        if (Service.instance().checkContact(checkingContact).equals(new User()))
+                            out.writeInt(Protocol.ERROR_CONTACT);
+                        else
+                            out.writeInt(Protocol.CONTACT_RESPONSE);
+                        out.writeObject(checkingContact);
+                    } catch (Exception e) {
+                        throw new RuntimeException();
+                    }
+                    break;
+
                 }
                 out.flush();
             } catch (IOException  ex) {

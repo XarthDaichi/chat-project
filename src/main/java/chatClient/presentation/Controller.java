@@ -19,7 +19,7 @@ public class Controller {
     
     public Controller(View view, Model model) {
         try {
-            model.setContacts(Service.instance().contactSearch(new User()));
+            model.setContacts(Service.instance().getContacts());
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
@@ -34,7 +34,9 @@ public class Controller {
     public void login(User u) throws Exception{
         User logged=ServiceProxy.instance().login(u);
         model.setCurrentUser(logged);
-        model.commit(Model.USER);
+        Service.instance().load(model.getCurrentUser());
+        model.setContacts(Service.instance().getContacts());
+        model.commit(Model.USER+Model.CHAT);
     }
 
     public void register(User u) throws Exception {
@@ -52,6 +54,7 @@ public class Controller {
     }
 
     public void logout(){
+        Service.instance().save(model.getCurrentUser());
         try {
             ServiceProxy.instance().logout(model.getCurrentUser());
             model.setMessages(new ArrayList<>());
@@ -63,13 +66,25 @@ public class Controller {
     }
         
     public void deliver(Message message){
+        model.setCurrentReceiver(message.getReceiver());
         model.messages.add(message);
         model.commit(Model.CHAT);       
     }
 
     public void addContact(User u) throws Exception {
-        User newContact = ServiceProxy.instance().checkContact(u);
-        model.
+        for (User checking : Service.instance().getContacts())
+            if (checking.equals(u))
+                throw new Exception("Contact already exists");
+        ServiceProxy.instance().checkContact(u);
+    }
+
+    public void addContactToList(User u) throws Exception {
+        if (u == null) throw new Exception("User not found");
+        else {
+            Service.instance().getContacts().add(u);
+            model.setContacts(Service.instance().getContacts());
+            model.commit(Model.CHAT);
+        }
     }
 
     public void search(User filter) throws Exception {
@@ -80,6 +95,12 @@ public class Controller {
             throw new RuntimeException(e);
         }
         model.setContacts(rows);
-        model.commit(Model.CONTACT);
+        model.commit(Model.CHAT);
+    }
+
+    public void selectContact(int row) {
+        User user = model.getContacts().get(row);
+        model.setCurrentReceiver(user);
+        model.commit(Model.CHAT);
     }
 }

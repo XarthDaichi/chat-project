@@ -23,11 +23,6 @@ public class Service {
 
     private Service() {
         data = new Data();
-//        try {
-//            data= XmlPersister.instance().load();
-//        } catch(Exception e) {
-//            data = new Data();
-//        }
     }
 
     public List<User> contactSearch(User filter) throws Exception {
@@ -38,5 +33,25 @@ public class Service {
         User result = data.getContacts().stream().filter(e->e.getNombre().equals(filter.getNombre())).findFirst().orElse(null);
         if (result!=null) return result;
         else throw new Exception("Contact does not exist");
+    }
+
+    public List<User> getContacts() {
+        return data.getContacts();
+    }
+
+    public void load(User user) {
+        try {
+            data = XmlPersister.instance(user).load();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void save(User user) {
+        try {
+            XmlPersister.instance(user).store(data);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 }

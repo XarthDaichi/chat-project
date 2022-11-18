@@ -74,13 +74,8 @@ public class ServiceProxy implements IService{
             out.writeObject(u);
             out.flush();
             int response = in.readInt();
-            if (response==Protocol.ERROR_NO_ERROR){
+            if (response==Protocol.ERROR_REGISTER){
                 User u1=(User) in.readObject();
-                this.start();
-            }
-            else {
-                disconnect();
-                throw new Exception("No remote user");
             }
         } catch (IOException | ClassNotFoundException ex) {
         }
@@ -135,8 +130,19 @@ public class ServiceProxy implements IService{
                     } catch (ClassNotFoundException ex) {}
                     break;
                 case Protocol.CONTACT_RESPONSE:
-
+                    try {
+                        User addingContact=(User) in.readObject();
+                        controller.addContactToList(addingContact);
+                    } catch(Exception e) {
+                        throw new RuntimeException(e);
+                    }
                     break;
+                    case Protocol.ERROR_CONTACT:
+                        try {
+                            controller.addContactToList(null);
+                        } catch(Exception e) {
+                            throw new RuntimeException(e);
+                        }
                 default:
                     break;
                 }
@@ -156,18 +162,14 @@ public class ServiceProxy implements IService{
       );
    }
 
-   public void checkContact(User u) throws Exception {
+   public User checkContact(User u) throws Exception {
        try {
            out.writeInt(Protocol.CONTACT);
            out.writeObject(u);
            out.flush();
-           int response = in.readInt();
-           if (response==Protocol.ERROR_NO_ERROR){
-           }
-           else {
-               throw new Exception("No remote user");
-           }
-       } catch (IOException | ClassNotFoundException ex) {
+       } catch (Exception e) {
+           throw new Exception(e);
        }
+       return null;
    }
 }

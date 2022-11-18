@@ -17,9 +17,9 @@ import java.io.FileOutputStream;
 public class XmlPersister {
     private String path;
     private static XmlPersister theInstance;
-    public static XmlPersister instance(){
+    public static XmlPersister instance(User user) {
         if (theInstance==null){
-            theInstance=new XmlPersister("chat.xml");
+            theInstance=new XmlPersister("chat" + user.getNombre() + ".xml");
         }
         return theInstance;
     }

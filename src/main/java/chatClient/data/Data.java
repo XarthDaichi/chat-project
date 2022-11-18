@@ -21,8 +21,7 @@ public class Data {
     protected List<Message> messages;
 
     public Data() {
-//        contacts = new ArrayList<User>();
-        contacts = new ArrayList<User>(Arrays.asList(new User("001", "000", "Diego", false),new User("002", "000", "Jorge", false), new User("003", "000", "Sofia", false)));
+        contacts = new ArrayList<User>();
         messages = new ArrayList<Message>();
     }
 

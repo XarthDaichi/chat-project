@@ -45,6 +45,21 @@ public class UsuarioDao {
         }
     }
 
+    public User read(String id) throws Exception {
+        String sql = "select " +
+                "* " +
+                "from Usuario u " +
+                "where u.id=?";
+        PreparedStatement stm = db.prepareStatement(sql);
+        stm.setString(1, id);
+        ResultSet rs = db.executeQuery(stm);
+        if (rs.next()) {
+            return from(rs, "u");
+        } else {
+            throw new Exception("USUARIO NO EXISTE");
+        }
+    }
+
     public void update(User u) throws Exception {
         String sql = "update " +
                 "Usuario " +
