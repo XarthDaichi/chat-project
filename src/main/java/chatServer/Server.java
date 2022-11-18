@@ -56,6 +56,7 @@ public class Server {
                                 wk.contactLogin(user);
                                 worker.contactLogin(wk.user);
                             }
+                            worker.checkMessages();
                         } catch (Exception ex) {
                             out.writeInt(Protocol.ERROR_LOGIN);
                             out.flush();

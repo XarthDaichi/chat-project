@@ -25,4 +25,6 @@ public class Protocol {
     public static final int ERROR_CONTACT=5;
     public static final int CONTACT_LOGIN=7;
     public static final int CONTACT_LOGOUT=8;
+
+    public static final int CHECK_MISSED=9;
 }

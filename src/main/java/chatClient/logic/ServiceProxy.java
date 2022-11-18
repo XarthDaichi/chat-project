@@ -92,7 +92,7 @@ public class ServiceProxy implements IService{
         this.disconnect();
     }
     
-    public void post(Message message){
+    public void post(Message message) throws Exception {
         try {
             out.writeInt(Protocol.POST);
             out.writeObject(message);
@@ -211,4 +211,8 @@ public class ServiceProxy implements IService{
        }
        return null;
    }
+
+    public List<Message> checkMessages(User user) throws Exception {
+        return new ArrayList<Message>();
+    }
 }

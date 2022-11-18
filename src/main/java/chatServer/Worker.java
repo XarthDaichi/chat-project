@@ -5,6 +5,8 @@ import chatProtocol.Protocol;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.List;
+
 import chatProtocol.IService;
 import chatProtocol.Message;
 
@@ -131,6 +133,17 @@ public class Worker {
             out.flush();
         } catch(IOException ex) {
 
+        }
+    }
+
+    public void checkMessages() {
+        try {
+            List<Message> missedMessages = service.checkMessages(user);
+            for (Message message : missedMessages) {
+                this.deliver(message);
+            }
+        } catch(Exception ex) {
+            throw new RuntimeException(ex);
         }
     }
 }

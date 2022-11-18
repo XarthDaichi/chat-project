@@ -11,8 +11,8 @@ create table Message (
     sender varchar(30) not null,
     receiver varchar(30) not null,
     note varchar(280) not null,
-    orderEntered varchar(10) not null,
-    Primary Key (orderEntered)
+    orderEntered int not null,
+    Primary Key (note)
 );
 ALTER TABLE Message ADD Foreign Key (sender) REFERENCES Usuario(id);
 ALTER TABLE Message ADD Foreign Key (receiver) REFERENCES Usuario(id);

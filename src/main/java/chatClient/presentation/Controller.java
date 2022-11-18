@@ -49,7 +49,11 @@ public class Controller {
         message.setMessage(text);
         message.setSender(model.getCurrentUser());
         message.setReceiver(model.getCurrentReceiver());
-        ServiceProxy.instance().post(message);
+        try {
+            ServiceProxy.instance().post(message);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         model.commit(Model.CHAT);
     }
 
