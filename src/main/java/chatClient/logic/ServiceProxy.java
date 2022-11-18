@@ -67,7 +67,7 @@ public class ServiceProxy implements IService{
         }
     }
 
-    public void register(User u) throws Exception {
+    public User register(User u) throws Exception {
         connect();
         try {
             out.writeInt(Protocol.REGISTER);
@@ -76,11 +76,14 @@ public class ServiceProxy implements IService{
             int response = in.readInt();
             if (response==Protocol.ERROR_NO_ERROR){
                 User u1=(User) in.readObject();
+                disconnect();
+                return u1;
             } else {
                 disconnect();
                 throw new Exception("Could not register");
             }
         } catch (IOException | ClassNotFoundException ex) {
+            return null;
         }
     }
     

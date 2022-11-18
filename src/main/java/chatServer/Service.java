@@ -39,8 +39,9 @@ public class Service implements IService{
         return usuarioDao.read(p.getId(), p.getClave());
     }
 
-    public void register(User p) throws Exception {
+    public User register(User p) throws Exception {
         usuarioDao.create(p);
+        return p;
     }
 
     public void logout(User p) throws Exception{
