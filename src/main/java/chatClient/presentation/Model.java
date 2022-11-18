@@ -21,6 +21,7 @@ public class Model extends java.util.Observable {
        currentUser = null;
        messages= new ArrayList<>();
 //       contacts = new ArrayList<User>(Arrays.asList(new User("001", "000", "Diego", false),new User("002", "000", "Jorge", false), new User("003", "000", "Sofia", false)));
+        this.setContacts(new ArrayList<User>());
     }
 
     public User getCurrentUser() {
@@ -49,7 +50,7 @@ public class Model extends java.util.Observable {
 
     public void addObserver(java.util.Observer o) {
         super.addObserver(o);
-        this.commit(Model.USER+Model.CHAT);
+        this.commit(Model.USER+Model.CHAT+Model.CONTACT);
     }
     
     public void commit(int properties){
@@ -59,4 +60,5 @@ public class Model extends java.util.Observable {
     
     public static int USER=1;
     public static int CHAT=2;
+    public static int CONTACT=3;
 }

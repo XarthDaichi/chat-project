@@ -1,6 +1,7 @@
 package chatClient.presentation;
 
 import chatClient.data.Data;
+import chatClient.logic.Service;
 import chatClient.logic.ServiceProxy;
 import chatProtocol.Message;
 import chatProtocol.User;
@@ -17,6 +18,11 @@ public class Controller {
     ServiceProxy localService;
     
     public Controller(View view, Model model) {
+        try {
+            model.setContacts(Service.instance().contactSearch(new User()));
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
         this.view = view;
         this.model = model;
         localService = (ServiceProxy)ServiceProxy.instance();
@@ -67,9 +73,12 @@ public class Controller {
 
     public void search(User filter) throws Exception {
         List<User> rows = null;
-        rows = data.getContacts().stream().filter(e->e.getNombre().equals(filter.getNombre())).findFirst().orElse(null);
-        if (rows!=null && !filter.getNombre().isEmpty()) return rows;
-        else if (rows==null && !filter.getNombre().isEmpty()) throw new Exception("Contact does not exits");
-
+        try {
+            rows = Service.instance().contactSearch(filter);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        model.setContacts(rows);
+        model.commit(Model.CONTACT);
     }
 }
