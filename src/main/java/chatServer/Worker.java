@@ -81,14 +81,18 @@ public class Worker {
                         System.out.println("Trying to add " + checkingContact.getNombre());
                         if (Service.instance().checkContact(checkingContact).equals(new User()))
                             out.writeInt(Protocol.ERROR_CONTACT);
-                        else
+                        else {
                             out.writeInt(Protocol.CONTACT_RESPONSE);
+                        }
                         out.writeObject(checkingContact);
+                        out.flush();
+                        if (contactLoggedIn(checkingContact)) {
+                            this.contactLogin(checkingContact);
+                        }
                     } catch (Exception e) {
                         throw new RuntimeException();
                     }
                     break;
-
                 }
                 out.flush();
             } catch (IOException  ex) {
@@ -110,6 +114,15 @@ public class Worker {
     public boolean receiverLoggedIn(Message message) {
         for (Worker wk:srv.workers){
             if (wk.user.equals(message.getReceiver())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean contactLoggedIn(User u) {
+        for (Worker wk:srv.workers) {
+            if (wk.user.equals(u)) {
                 return true;
             }
         }
