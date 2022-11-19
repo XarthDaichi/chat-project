@@ -78,16 +78,18 @@ public class Worker {
                 case Protocol.CONTACT:
                     try {
                         User checkingContact = (User) in.readObject();
-                        System.out.println("Trying to add " + checkingContact.getNombre());
-                        if (Service.instance().checkContact(checkingContact).equals(new User()))
+                        User checkingContactBD = Service.instance().checkContact(checkingContact);
+                        checkingContactBD.setClave("");
+                        System.out.println("Trying to add " + checkingContactBD.getNombre());
+                        if (checkingContactBD.equals(new User()))
                             out.writeInt(Protocol.ERROR_CONTACT);
                         else {
                             out.writeInt(Protocol.CONTACT_RESPONSE);
                         }
-                        out.writeObject(checkingContact);
+                        out.writeObject(checkingContactBD);
                         out.flush();
-                        if (contactLoggedIn(checkingContact)) {
-                            this.contactLogin(checkingContact);
+                        if (contactLoggedIn(checkingContactBD)) {
+                            this.contactLogin(checkingContactBD);
                         }
                     } catch (Exception e) {
                         throw new RuntimeException();
